@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body >
+    <div class="main-container d-flex justify-content-center container-fluid">
+      <div
+        class="row inner-container container mt-5
+         d-flex justify-content-center"
+      >
+        <!-- form left side section html part start here  -->
+        <div class="col-md-4 offset-1 formInfo position-relative ">
+          <div class="logo ps-4"><span class="fw-semibold fs-1 heading">Education</span> <span class="fs-4 fw-semibold">Form</span></div>
+          <ul class="progressStep d-flex flex-column justify-content-center gap-4 pt-4 ps-3">
+            <li class="step active">
+              <span>1</span>
+              <p>
+                Personal Details <br />
+                <span class="small">Complete your First Section</span>
+              </p>
+            </li>
+
+            <li class="step">
+              <span>2</span>
+              <p>
+                Contact Details <br />
+                <span class="small">Complete your Second Section</span>
+              </p>
+            </li>
+
+            <li class="step ">
+              <span>3</span>
+              <p>
+                Security Details <br />
+                <span class="small">Complete your Third Section</span>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <!-- Form section start here  -->
+        <div class="col-md-7 formSection  ">
+          <form class="pl-5" id="registration-form" action="">
+            <div class="formOne py-3 stepForm active">
+              <h1 class="pb-1 display-5 fw-semibold">Personal Information</h1>
+              <p class="pb-1">Enter your Personal Details Here</p>
+              <div>
+                <label class="ps-1 pb-3 name">FullName: <span class="">atleast one capital letter, no numbers</span> </label>
+                <input class="mb-2 empty" type="text" placeholder="Fullname" id="firstname" />
+                <p id="firstnameerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+              </div>
+            </div>
+
+            <div class="formTwo stepForm">
+              <h1>Contact Information</h1>
+              <p>Enter your Contact Details Here</p>
+              <div>
+                <label>Email</label>
+                <input class="empty" type="text" placeholder="Email" id="email" />
+                  <p id="emailerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+              </div>
+              <div>
+                <label>Phone</label>
+                <input class="empty" type="text" id="phone" placeholder="Phone" />
+              </div>
+              <div>
+                <label>Address</label>
+                <input class="empty" type="text" id="address" placeholder="Address" />
+              </div>
+              <div>
+                <label>City</label>
+                <input class="empty" type="text" id="city" placeholder="City" />
+              </div>
+            </div>
+
+            <div class="formThree stepForm">
+                <h1>Security Information</h1>
+                <p>Enter your Security Details Here</p>
+                <div>
+                  <label>Password</label>
+                  <input class="empty" type="password" placeholder="Password" id="password" />
+                </div>
+                <div>
+                  <label>Confirm Password</label>
+                  <input class="empty" type="password" id="cpassword" placeholder="PASSWORD" />
+                </div>
+                <div>
+                  <label>Security Question</label>
+                  <input class="empty" type="text" id="squestion" placeholder="Security Question" />
+                </div> 
+            </div>
+            <div class="btn-group d-flex  justify-content-between pt-4 mt-3">
+                    <button type="button" class="btn-prev" disabled>Back</button>
+                    <button type="button" class="btn-Next">Next</button>
+                    <button type="submit" class="btn-Submit">Submit</button>
+            </div>
+            </form>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script src="./app.js"></script>
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script> -->
+  </body>
+</html>
