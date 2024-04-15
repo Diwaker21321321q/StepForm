@@ -12,6 +12,22 @@ let currentStep = formsteps.findIndex((steps) => {
 });
 // console.log(currentStep); it gives -1
 
+// regex validation for username
+const usernamevalidation = /^(?=.*[A-Z])[a-zA-Z]{1,50}$/;
+
+//regex validation for special characters
+const specialchars =
+  /^(?=.*[A-Z])[a-zA-Z!@#$%^&*()_+={}[\]:;\"'<,>.?/~`|-]{1,50}$/;
+
+// regex validation for email
+const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+//regex validation for phone number
+const phoneValidation = /^\d{10}$/;
+
+//regex validation for address
+const addressRegex = /^[a-zA-Z\s\d]{8,200}$/;
+
 if (currentStep < 0) {
   currentStep = 0;
   showCurrecntpage();
@@ -26,29 +42,82 @@ function isture(value) {
   }
 }
 
-// regex validation for username
-const usernamevalidation = /^(?=.*[A-Z])[a-zA-Z]{1,50}$/;
+//on key press form validation start here
+function validateform(event) {
+  const usernamevalidation = /[^a-zA-Z\s]+/;
+  const numbervalidation = /[^0-9]+/;
 
-//regex validation for special characters
-const specialchars =
-  /^(?=.*[A-Z])[a-zA-Z!@#$%^&*()_+={}[\]:;\"'<,>.?/~`|-]{1,50}$/;
+  const inputValue = event.key;
+  console.log(inputValue);
 
-// regex validation for email
-const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const inputId = event.target.id;
+  console.log(inputId);
 
-//regex validation for phone number
-const phoneValidation = /^\d{10}$/;
+  var allValid = true;
+
+  switch (inputId) {
+    // Perform username validation
+    case "firstname":
+      if (usernamevalidation.test(inputValue)) {
+        document.querySelector("#firstnameerror").textContent =
+          "Username must not contain no numbers.";
+        allValid = false;
+        event.preventDefault();
+      } else {
+        document.querySelector("#firstnameerror").textContent = "";
+      }
+      break;
+
+    // Perform phone number validation
+    case "phone":
+      if (numbervalidation.test(inputValue)) {
+        allValid = false;
+        event.preventDefault();
+      } else {
+        document.querySelector("#phoneerror").textContent = "";
+      }
+      break;
+
+    // Perform ZIP code validation
+    case "zipcode":
+      if (numbervalidation.test(inputValue)) {
+        event.preventDefault();
+        allValid = false;
+      } else {
+        document.querySelector("#codeerror").textContent = "";
+      }
+      break;
+
+    // Perform city name validation
+    case "city":
+      if (usernamevalidation.test(inputValue)) {
+        event.preventDefault();
+        allValid = false;
+      } else {
+        document.querySelector("#cityerror").textContent = "";
+      }
+      break;
+    default:
+      break;
+  }
+
+  // Enable or disable the next button based on allValid
+  // const nextBtn = document.querySelector(".btn-Next");
+  // nextBtn.disabled = !allValid;
+}
 
 let usernamevalid;
 let emailvalid;
 let phoneNumberValid;
 let addressvalid;
+let pincodevalid;
+let citynamevalid;
 
 //for name and email regex Validation
 if (currentStep == 0) {
   const firstNameInput = document.getElementById("firstname");
   const email = document.getElementById("email");
-  firstNameInput.addEventListener("keyup", (e) => {
+  firstNameInput.addEventListener("keydown", (e) => {
     console.log(e.target.value);
 
     if (usernamevalidation.test(e.target.value)) {
@@ -99,11 +168,11 @@ document.getElementById("phone").addEventListener("keyup", (e) => {
     document.querySelector("#phoneerror").innerText = "";
     e.target.setAttribute("class", "success");
     phoneNumberValid = true;
-  } else if (phoneInput.length != 10) {
-    e.target.setAttribute("class", "failed");
+  } else if (phoneInput.length === 10) {
+    e.target.setAttribute("class", "success");
     document.querySelector("#phoneerror").innerText =
-      "Please enter exactly 10 digits for the phone number.";
-    phoneNumberValid = false;
+      "You Enter a 10 digits phone number.";
+    phoneNumberValid = true;
   } else {
     e.target.setAttribute("class", "failed");
     document.querySelector("#phoneerror").innerText = "Incorrect PhoneNumber";
@@ -120,16 +189,15 @@ document.getElementById("phone").addEventListener("keyup", (e) => {
 //address validation
 document.getElementById("streetname").addEventListener("keyup", (e) => {
   let addressError = document.getElementById("addresserror");
-  if (e.target.value.trim() === "") {
-    e.target.classList.add("failed");
-    addressError.textContent = "Street address is required";
-    addressvalid = false;
-    console.log("in");
-  } else {
+  if (addressRegex.test(e.target.value.trim())) {
     addressError.textContent = "";
     e.target.classList.remove("failed");
     e.target.classList.add("success");
     addressvalid = true;
+  } else {
+    e.target.classList.add("failed");
+    addressError.textContent = "Street address is required minimum 8 letters";
+    addressvalid = false;
   }
   if (!addressvalid) {
     secondnextbtn.disabled = true;
@@ -137,6 +205,50 @@ document.getElementById("streetname").addEventListener("keyup", (e) => {
     secondnextbtn.disabled = false;
   }
   return;
+});
+
+//pincode validation
+document.getElementById("zipcode").addEventListener("keyup", (e) => {
+  const pinCodeInput = document.getElementById("zipcode");
+  const pinError = document.getElementById("codeerror");
+  if (/^\d{1,6}$/.test(pinCodeInput.value.trim())) {
+    pinError.textContent = "";
+    pinCodeInput.classList.remove("failed");
+    pinCodeInput.classList.add("success");
+    pincodevalid = true;
+  } else {
+    pinError.textContent = "Please enter a valid 6-digit PIN code";
+    pinCodeInput.classList.add("failed");
+    pinCodeInput.classList.remove("success");
+    pincodevalid = false;
+  }
+  if (!pincodevalid) {
+    secondnextbtn.disabled = true;
+  } else {
+    secondnextbtn.disabled = false;
+  }
+});
+
+//city validation
+document.getElementById("city").addEventListener("keyup", (e) => {
+  const cityInput = document.getElementById("city");
+  const cityError = document.getElementById("cityerror");
+  if (/^[a-zA-Z\s]+$/.test(cityInput.value.trim())) {
+    cityError.textContent = "";
+    cityInput.classList.remove("failed");
+    cityInput.classList.add("success");
+    citynamevalid = true;
+  } else {
+    cityError.textContent = "Please enter a valid city name";
+    cityInput.classList.add("failed");
+    cityInput.classList.remove("success");
+    citynamevalid = false;
+  }
+  if (!citynamevalid) {
+    secondnextbtn.disabled = true;
+  } else {
+    secondnextbtn.disabled = false;
+  }
 });
 
 multistepForm.addEventListener("click", (e) => {
@@ -176,7 +288,8 @@ form.addEventListener("submit", (e) => {
   const fname = document.getElementById("firstname").value;
   const Email = document.getElementById("email").value;
   const Phone = document.getElementById("phone").value;
-  let Address = document.getElementById("address").value;
+  const streetaddress = document.getElementById("streetname");
+  // let Address = document.getElementById("address").value;
   let City = document.getElementById("city").value;
   let Password = document.getElementById("password").value;
 
@@ -186,6 +299,11 @@ form.addEventListener("submit", (e) => {
   if (fname == "") {
     document.querySelector("#firstnameerror").innerText = "Incorrect FirstName";
     document.querySelector("#firstnameerror").innerText = "";
+  }
+  if (streetaddress.value.trim() === "") {
+    let addressError = document.getElementById("addresserror");
+    addressError.textContent = "Street address cant be empty";
+    e.target.classList.remove("success");
   }
 
   // change border color of empty fields
@@ -210,7 +328,6 @@ form.addEventListener("submit", (e) => {
     fname,
     Email,
     Phone,
-    Address,
     City,
     Password,
     Cpassword,

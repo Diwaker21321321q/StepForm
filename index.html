@@ -56,7 +56,7 @@
               <p class="pb-1">Enter your Personal Details Here</p>
               <div>
                 <label class="ps-1 pb-3 name">FullName: <span class="">atleast one capital letter, no numbers</span> </label>
-                <input class="mb-2 empty"  type="text" placeholder="Fullname" id="firstname"  />
+                <input class="mb-2 empty"  type="text" placeholder="Fullname" id="firstname" onkeypress="validateform(event)" />
                 <p id="firstnameerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
 
@@ -76,7 +76,7 @@
               <p>Enter your Contact Details Here</p>
               <div>
                 <label class="fs-4 fw-semibold py-2">Phone:</label>
-                <input class="empty" type="text" id="phone" placeholder="Phone" />
+                <input class="empty" type="text" id="phone" minlength="1" maxlength="10" placeholder="Phone" onkeypress="validateform(event)" />
                 <p id="phoneerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
               <div>
@@ -90,7 +90,7 @@
 
                   <div class="col-md-6">
                 <label class="mb-2">ZipCode:</label>
-                <input class="empty" type="tel" id="zipcode" placeholder="Pincode" />
+                <input class="empty" type="tel" id="zipcode" placeholder="Pincode" onkeypress="validateform(event)" />
                 <p id="codeerror" class="small pt-1  m-0 ps-1 text-danger"></p>
                   </div>
 
@@ -100,8 +100,10 @@
               </div>
               <div>
                 <label>City</label>
-                <input class="empty" type="text" id="city" placeholder="City" />
-              </div>
+                <input class="empty" type="text" id="city" placeholder="City" onkeypress="validateform(event)" />
+                 <p id="cityerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                </div>
+            
                      <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
                     <button type="button" class="secondbtn-prev" prevbtn >Back</button>
                     <button type="button" class="secondbtn-Next" nxtbtn>Next</button>
