@@ -49,40 +49,66 @@
         </div>
         <!-- Form section start here  -->
         <div class="col-md-7 formSection  ">
-          <form class="pl-5" id="registration-form" action="">
-            <div class="formOne py-3 stepForm active">
+          <form class="pl-5 " id="registration-form" data-multistep action="">
+
+            <div class="formOne border-0 card py-3 stepForm" data-step>
               <h1 class="pb-1 display-5 fw-semibold">Personal Information</h1>
               <p class="pb-1">Enter your Personal Details Here</p>
               <div>
                 <label class="ps-1 pb-3 name">FullName: <span class="">atleast one capital letter, no numbers</span> </label>
-                <input class="mb-2 empty" type="text" placeholder="Fullname" id="firstname" />
+                <input class="mb-2 empty"  type="text" placeholder="Fullname" id="firstname"  />
                 <p id="firstnameerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
+
+               <div>
+                <label>Email:</label>
+                <input class="empty" type="text" placeholder="Email" id="email"  />
+                <p id="emailerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+              </div>
+                    <div class="btn-group text-center  pt-4">
+                    <button type="button" class="btn-Next " nxtbtn>Next</button>
+
+            </div>
             </div>
 
-            <div class="formTwo stepForm">
+            <div class="formTwo border-0 card stepForm" data-step>
               <h1>Contact Information</h1>
               <p>Enter your Contact Details Here</p>
               <div>
-                <label>Email</label>
-                <input class="empty" type="text" placeholder="Email" id="email" />
-                  <p id="emailerror" class="small pt-1  m-0 ps-1 text-danger"></p>
-              </div>
-              <div>
-                <label>Phone</label>
+                <label class="fs-4 fw-semibold py-2">Phone:</label>
                 <input class="empty" type="text" id="phone" placeholder="Phone" />
+                <p id="phoneerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
               <div>
-                <label>Address</label>
-                <input class="empty" type="text" id="address" placeholder="Address" />
+                <label class="pt-2 pb-1 fs-4 fw-semibold">Address:</label>
+                <div class="row p-0 m-0">
+                  <div class="col-md-6 p-0 m-0">
+                <label class="mb-2">Street Name:</label>
+                <input class="empty" type="text" id="streetname" placeholder="Address" />
+                <p id="addresserror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                  </div>
+
+                  <div class="col-md-6">
+                <label class="mb-2">ZipCode:</label>
+                <input class="empty" type="tel" id="zipcode" placeholder="Pincode" />
+                <p id="codeerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                  </div>
+
+                </div>
+
+
               </div>
               <div>
                 <label>City</label>
                 <input class="empty" type="text" id="city" placeholder="City" />
               </div>
+                     <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
+                    <button type="button" class="secondbtn-prev" prevbtn >Back</button>
+                    <button type="button" class="secondbtn-Next" nxtbtn>Next</button>
+            </div>
             </div>
 
-            <div class="formThree stepForm">
+            <div class="formThree border-0 card stepForm" data-step>
                 <h1>Security Information</h1>
                 <p>Enter your Security Details Here</p>
                 <div>
@@ -97,22 +123,21 @@
                   <label>Security Question</label>
                   <input class="empty" type="text" id="squestion" placeholder="Security Question" />
                 </div> 
+                    <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
+                    <button type="button" class="btn-prev" prevbtn>Back</button>
+                    <button type="submit" class="btn-Submit">Submit</button>
             </div>
-            <div class="btn-group d-flex  justify-content-between pt-4 mt-3">
+            </div>
+            <!-- <div class="btn-group d-flex  justify-content-between pt-4 mt-3">
                     <button type="button" class="btn-prev" disabled>Back</button>
                     <button type="button" class="btn-Next">Next</button>
                     <button type="submit" class="btn-Submit">Submit</button>
-            </div>
+            </div> -->
             </form>
         </div>
         </div>
       </div>
     </div>
     <script src="./app.js"></script>
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script> -->
   </body>
 </html>

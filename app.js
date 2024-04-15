@@ -1,13 +1,30 @@
-const prevBtn = document.querySelector(".btn-prev");
-const nextBtn = document.querySelector(".btn-Next");
+const multistepForm = document.querySelector("[data-multistep]");
+const formsteps = [...multistepForm.querySelectorAll("[data-step]")];
+const form = document.getElementById("registration-form");
 
 const progresssteps = document.querySelectorAll(".step");
 
-const formsteps = document.querySelectorAll(".stepForm");
+const nextBtn = document.querySelector(".btn-Next");
+const secondnextbtn = document.querySelector(".secondbtn-Next");
 
-const form = document.getElementById("registration-form");
+let currentStep = formsteps.findIndex((steps) => {
+  return steps.classList.contains("active");
+});
+// console.log(currentStep); it gives -1
 
-let currentStep = 1;
+if (currentStep < 0) {
+  currentStep = 0;
+  showCurrecntpage();
+}
+
+function isture(value) {
+  if (!value) {
+    nextBtn.disabled = true;
+    return;
+  } else {
+    nextBtn.disabled = false;
+  }
+}
 
 // regex validation for username
 const usernamevalidation = /^(?=.*[A-Z])[a-zA-Z]{1,50}$/;
@@ -19,68 +36,139 @@ const specialchars =
 // regex validation for email
 const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-nextBtn.addEventListener("click", () => {
-  // debugger;
+//regex validation for phone number
+const phoneValidation = /^\d{10}$/;
+
+let usernamevalid;
+let emailvalid;
+let phoneNumberValid;
+let addressvalid;
+
+//for name and email regex Validation
+if (currentStep == 0) {
   const firstNameInput = document.getElementById("firstname");
-  if (firstNameInput.value.trim() === "") {
-    document.querySelector("#firstnameerror").innerText = "Please Enter First";
-    firstNameInput.classList.add("failed");
-    return; // Prevent proceeding to the next step
-  }
+  const email = document.getElementById("email");
+  firstNameInput.addEventListener("keyup", (e) => {
+    console.log(e.target.value);
 
-  if (!usernamevalidation.test(firstNameInput.value.trim())) {
-    document.querySelector("#firstnameerror").innerText =
-      "Invalid first name. Please enter a valid first name with at least one capital letter, no numbers, and maximum 50 characters.";
-    firstNameInput.classList.add("failed");
-    return;
-  }
-
-  // const emailInput = document.getElementById("email");
-  // if (emailInput.value.trim() === "") {
-  //   emailInput.classList.add("failed");
-  //   document.querySelector("#emailerror").innerText = "Please Enter First";
-  //   return; // Prevent proceeding to the next step
-  // } else {
-  //   document.querySelector("#emailerror").innerText = "";
-  //   emailInput.classList.remove("failed");
-  //   emailInput.classList.add("success");
-  // }
-
-  currentStep++;
-  if (currentStep > progresssteps.length) {
-    currentStep = progresssteps.length;
-  }
-  updateProgress();
-});
-
-prevBtn.addEventListener("click", () => {
-  currentStep--;
-  if (currentStep < 0) {
-    currentStep = 1;
-  }
-  updateProgress();
-});
-
-const updateProgress = () => {
-  progresssteps.forEach((steps, i) => {
-    if (i == currentStep - 1) {
-      steps.classList.add("active");
-      formsteps[i].classList.add("active");
+    if (usernamevalidation.test(e.target.value)) {
+      document.querySelector("#firstnameerror").innerText = "";
+      firstNameInput.classList.remove("failed");
+      firstNameInput.classList.add("success");
+      usernamevalid = true;
+    } else if (/[0-9]/.test(e.target.value)) {
+      document.querySelector("#firstnameerror").innerText =
+        "Do not Enter Numbers on Username Feild";
+      e.target.classList.add("failed");
+      usernamevalid = false;
+    } else if (specialchars.test(e.target.value)) {
+      document.querySelector("#firstnameerror").innerText =
+        "Do not Enter SpecialCharacters on Username Feild";
+      e.target.classList.add("failed");
+      usernamevalid = false;
     } else {
-      steps.classList.remove("active");
-      formsteps[i].classList.remove("active");
+      document.querySelector("#firstnameerror").innerText =
+        "Please Enter First";
+      firstNameInput.classList.add("failed");
+      usernamevalid = false;
     }
-  });
+    isture(usernamevalid);
 
-  if (currentStep == 1) {
-    prevBtn.disabled = true;
-  } else if (currentStep == progresssteps.length) {
-    nextBtn.disabled = true;
+    return;
+  });
+  email.addEventListener("keyup", (e) => {
+    if (emailValidation.test(e.target.value)) {
+      document.querySelector("#emailerror").innerText = " ";
+      e.target.setAttribute("class", "success");
+      emailvalid = true;
+    } else {
+      document.querySelector("#emailerror").innerText =
+        "Incorrect Email Please Check Your Email";
+      e.target.setAttribute("class", "failed");
+      emailvalid = false;
+    }
+    isture(emailvalid);
+    return;
+  });
+}
+
+//phone validation
+document.getElementById("phone").addEventListener("keyup", (e) => {
+  const phoneInput = document.getElementById("phone");
+  if (phoneValidation.test(phoneInput.value)) {
+    document.querySelector("#phoneerror").innerText = "";
+    e.target.setAttribute("class", "success");
+    phoneNumberValid = true;
+  } else if (phoneInput.length != 10) {
+    e.target.setAttribute("class", "failed");
+    document.querySelector("#phoneerror").innerText =
+      "Please enter exactly 10 digits for the phone number.";
+    phoneNumberValid = false;
   } else {
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
+    e.target.setAttribute("class", "failed");
+    document.querySelector("#phoneerror").innerText = "Incorrect PhoneNumber";
+    phoneNumberValid = false;
   }
-};
+  if (!phoneNumberValid) {
+    secondnextbtn.disabled = true;
+  } else {
+    secondnextbtn.disabled = false;
+  }
+  return;
+});
+
+//address validation
+document.getElementById("streetname").addEventListener("keyup", (e) => {
+  let addressError = document.getElementById("addresserror");
+  if (e.target.value.trim() === "") {
+    e.target.classList.add("failed");
+    addressError.textContent = "Street address is required";
+    addressvalid = false;
+    console.log("in");
+  } else {
+    addressError.textContent = "";
+    e.target.classList.remove("failed");
+    e.target.classList.add("success");
+    addressvalid = true;
+  }
+  if (!addressvalid) {
+    secondnextbtn.disabled = true;
+  } else {
+    secondnextbtn.disabled = false;
+  }
+  return;
+});
+
+multistepForm.addEventListener("click", (e) => {
+  // debugger;
+  let valuechange;
+  if (e.target.matches("[nxtbtn]")) {
+    valuechange = 1;
+  } else if (e.target.matches("[prevbtn]")) {
+    valuechange = -1;
+  }
+
+  if (valuechange == null) return;
+
+  const inputs = [...formsteps[currentStep].querySelectorAll("input")];
+  console.log(inputs);
+
+  let allvalid = inputs.every((input) => input.reportValidity());
+
+  if (allvalid) {
+    currentStep += valuechange;
+    showCurrecntpage();
+  }
+});
+
+function showCurrecntpage() {
+  formsteps.forEach((step, index) => {
+    step.classList.toggle("active", index === currentStep);
+  });
+  progresssteps.forEach((step, index) => {
+    step.classList.toggle("active", index === currentStep);
+  });
+}
 
 form.addEventListener("submit", (e) => {
   // debugger;
@@ -136,23 +224,17 @@ form.addEventListener("submit", (e) => {
   location.href = "redirect.html";
 });
 
-// code for Live regex Validation
+//city validation
+// document.getElementById("address").addEventListener("keyup", (e) => {
+//   const addressInput = e.target;
+//   const addressError = document.querySelector("#addresserror");
 
-//for name regex Validation
-document.querySelector("#firstname").addEventListener("keyup", (e) => {
-  if (usernamevalidation.test(e.target.value)) {
-    document.querySelector("#firstnameerror").innerText = " ";
-    e.target.setAttribute("class", "success");
-  } else if (/[0-9]/.test(e.target.value)) {
-    document.querySelector("#firstnameerror").innerText =
-      "Do not Enter Numbers on Username Feild";
-    e.target.setAttribute("class", "failed");
-  } else if (specialchars.test(e.target.value)) {
-    document.querySelector("#firstnameerror").innerText =
-      "Do not Enter SpecialCharacters on Username Feild";
-    e.target.setAttribute("class", "failed");
-  } else {
-    document.querySelector("#firstnameerror").innerText = "Incorrect FirstName";
-    e.target.setAttribute("class", "failed");
-  }
-});
+//   if (addressInput.value.trim() === "") {
+//     addressError.innerText = "Please Enter Address";
+//     addressInput.classList.add("failed");
+//   } else {
+//     addressError.innerText = "";
+//     addressInput.classList.remove("failed");
+//     addressInput.classList.add("success");
+//   }
+// });

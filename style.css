@@ -103,8 +103,16 @@ form > div:not(.btn-group) {
     transform: translateY(0%);
   }
 }
-
+/* 
 form > div.active {
+  display: block;
+} */
+
+.card {
+  display: none;
+}
+
+.card.active {
   display: block;
 }
 
