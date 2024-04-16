@@ -15,9 +15,9 @@
   <body >
     <div class="main-container d-flex justify-content-center container-fluid">
       <div
-        class="row inner-container container mt-5
-         d-flex justify-content-center"
+        class=" inner-container container mt-5"
       >
+      <div class="shadowcolorbox row justify-content-center">
         <!-- form left side section html part start here  -->
         <div class="col-md-4 offset-1 formInfo position-relative ">
           <div class="logo ps-4"><span class="fw-semibold fs-1 heading">Education</span> <span class="fs-4 fw-semibold">Form</span></div>
@@ -55,15 +55,19 @@
               <h1 class="pb-1 display-5 fw-semibold">Personal Information</h1>
               <p class="pb-1">Enter your Personal Details Here</p>
               <div>
-                <label class="ps-1 pb-3 name">FullName: <span class="">atleast one capital letter, no numbers</span> </label>
+                <div class="content d-flex">
+                  <label class="ps-1 fs-5 pb-1 ">FullName: </label>
+                  <p id="firstnameerror" class="small pt-2  m-0 ps-2 text-danger"></p>
+                </div>
                 <input class="mb-2 empty"  type="text" placeholder="Fullname" id="firstname" onkeypress="validateform(event)" />
-                <p id="firstnameerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
 
                <div>
-                <label>Email:</label>
+                <div class="content d-flex">
+                <label class="fs-5 pb-1 ps-1">Email:</label>
+                <p id="emailerror" class="small  pt-2  m-0 ps-2 text-danger"></p>
+                </div>
                 <input class="empty" type="text" placeholder="Email" id="email"  />
-                <p id="emailerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
                     <div class="btn-group text-center  pt-4">
                     <button id="step1NextBtn" type="button" class="btn-Next sectiononebtn " nxtbtn>Next</button>
@@ -75,20 +79,22 @@
               <h1>Contact Information</h1>
               <p>Enter your Contact Details Here</p>
               <div>
-                <label class="fs-4 fw-semibold py-2">Phone:</label>
+                <div class="content d-flex">
+                <label class="fs-5 fw-semibold py-2">Phone:</label>
+                <p id="phoneerror" class="small pt-3  m-0 ps-2 text-danger"></p>
+                </div>
                 <input class="empty" type="text" id="phone" minlength="1" maxlength="10" placeholder="Phone" onkeypress="validateform(event)" />
-                <p id="phoneerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
               <div>
-                <label class="pt-2 pb-1 fs-4 fw-semibold">Address:</label>
-                <div class="row p-0 m-0">
-                  <div class="col-md-6 p-0 m-0">
+                <label class="pt-2 pb-1 fs-5 fw-semibold">Address:</label>
+                <div class="row justify-content-center p-0 m-0">
+                  <div class="col-lg p-0 m-0">
                 <label class="mb-2">Street Name:</label>
                 <input class="empty" type="text" id="streetname" placeholder="Address" />
                 <p id="addresserror" class="small pt-1  m-0 ps-1 text-danger"></p>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-lg">
                 <label class="mb-2">ZipCode:</label>
                 <input class="empty" type="tel" id="zipcode" placeholder="Pincode" onkeypress="validateform(event)" />
                 <p id="codeerror" class="small pt-1  m-0 ps-1 text-danger"></p>
@@ -99,9 +105,11 @@
 
               </div>
               <div>
-                <label>City</label>
+                <div class="content d-flex">
+                <label class="pt-2 pb-1 fs-5 fw-semibold">City:</label>
+                <p id="cityerror" class="small pt-3  m-0 ps-2 text-danger"></p>
+                </div>
                 <input class="empty" type="text" id="city" placeholder="City" onkeypress="validateform(event)" />
-                 <p id="cityerror" class="small pt-1  m-0 ps-1 text-danger"></p>
                 </div>
             
                      <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
@@ -137,6 +145,7 @@
             </div>
 
             </form>
+        </div>
         </div>
         </div>
       </div>

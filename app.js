@@ -38,22 +38,14 @@ function validateform(event) {
     // Perform username validation
     case "firstname":
       if (usernamevalidation.test(inputValue)) {
-        document.querySelector("#firstnameerror").textContent =
-          "Username must not contain no numbers.";
-        allValid = false;
         event.preventDefault();
-      } else {
-        document.querySelector("#firstnameerror").textContent = "";
       }
       break;
 
     // Perform phone number validation
     case "phone":
       if (numbervalidation.test(inputValue)) {
-        allValid = false;
         event.preventDefault();
-      } else {
-        document.querySelector("#phoneerror").textContent = "";
       }
       break;
 
@@ -61,9 +53,6 @@ function validateform(event) {
     case "zipcode":
       if (numbervalidation.test(inputValue)) {
         event.preventDefault();
-        allValid = false;
-      } else {
-        document.querySelector("#codeerror").textContent = "";
       }
       break;
 
@@ -71,9 +60,6 @@ function validateform(event) {
     case "city":
       if (usernamevalidation.test(inputValue)) {
         event.preventDefault();
-        allValid = false;
-      } else {
-        document.querySelector("#cityerror").textContent = "";
       }
       break;
     default:
@@ -113,17 +99,18 @@ function validateform(event) {
 //   }
 // });
 
-function showCurrecntpage() {
-  formsteps.forEach((step, index) => {
-    step.classList.toggle("active", index === currentStep);
-  });
-  progresssteps.forEach((step, index) => {
-    step.classList.toggle("active", index === currentStep);
-  });
-}
+// function showCurrecntpage() {
+//   formsteps.forEach((step, index) => {
+//     step.classList.toggle("active", index === currentStep);
+//   });
+//   progresssteps.forEach((step, index) => {
+//     step.classList.toggle("active", index === currentStep);
+//   });
+// }
 
 //for name and email regex Validation
-firstNameInput.addEventListener("keydown", (e) => {
+
+firstNameInput.addEventListener("keyup", (e) => {
   console.log(e.target.value);
   if (usernamevalidation.test(e.target.value)) {
     document.querySelector("#firstnameerror").innerText = "";
@@ -134,7 +121,8 @@ firstNameInput.addEventListener("keydown", (e) => {
       "Do not Enter Numbers on Username Feild";
     e.target.classList.add("failed");
   } else {
-    document.querySelector("#firstnameerror").innerText = "Please Enter First";
+    document.querySelector("#firstnameerror").innerText =
+      "Please Enter The Correct Name";
     firstNameInput.classList.add("failed");
   }
 });
@@ -153,16 +141,14 @@ email.addEventListener("keyup", (e) => {
 
 //phone validation
 document.getElementById("phone").addEventListener("keyup", (e) => {
-  var isphonevalid = false;
   const phoneInput = document.getElementById("phone");
   if (phoneValidation.test(phoneInput.value)) {
     document.querySelector("#phoneerror").innerText = "";
     e.target.setAttribute("class", "success");
-    isphonevalid = true;
   } else {
     e.target.setAttribute("class", "failed");
-    document.querySelector("#phoneerror").innerText = "Incorrect PhoneNumber";
-    isphonevalid = false;
+    document.querySelector("#phoneerror").innerText =
+      "PhoneNumber Contains 10 Digit Numbers";
   }
 });
 
@@ -268,21 +254,29 @@ form.addEventListener("submit", (e) => {
   const stringData = JSON.stringify(formData);
   localStorage.setItem("formData", stringData);
 
+  let arrPass = ["password", "cpassword", "squestion"];
+
   if (Password !== Cpassword) {
     document.getElementById("cpassworderror").innerText =
       "Passwords do not match Please Check Your Password";
-    document.getElementById("password").classList.add("failed");
-    document.getElementById("cpassword").classList.add("failed");
+    arrPass.forEach((value, i) => {
+      if (i < 2) {
+        document.getElementById(`${value}`).classList.add("failed");
+      }
+    });
     return false;
   } else {
-    document.getElementById("password").classList.add("success");
-    document.getElementById("cpassword").classList.add("success");
+    arrPass.forEach((value, i) => {
+      if (i < 2) {
+        document.getElementById(`${value}`).classList.add("success");
+      }
+    });
   }
 
   if (Password == "" || Cpassword == "" || SecurityQuestion == "") {
-    document.getElementById("password").classList.add("failed");
-    document.getElementById("cpassword").classList.add("failed");
-    document.getElementById("squestion").classList.add("failed");
+    arrPass.forEach((value) => {
+      document.getElementById(`${value}`).classList.add("failed");
+    });
 
     document.getElementById("passworderror").innerText =
       "kindly fill this field";
@@ -290,9 +284,9 @@ form.addEventListener("submit", (e) => {
     document.getElementById("questionerror").innerText = "This feild is empty";
     return false;
   } else if (Password !== "" || Cpassword !== "" || SecurityQuestion !== "") {
-    document.getElementById("password").classList.add("success");
-    document.getElementById("cpassword").classList.add("success");
-    document.getElementById("squestion").classList.add("success");
+    arrPass.forEach((value) => {
+      document.getElementById(`${value}`).classList.add("success");
+    });
     form.reset();
     location.href = "redirect.html";
   }
@@ -314,7 +308,8 @@ document.getElementById("step1NextBtn").addEventListener("click", () => {
     firstNameInput.classList.add("success");
     usernamevalid = true;
   } else {
-    document.querySelector("#firstnameerror").innerText = "Please Enter First";
+    document.querySelector("#firstnameerror").innerText =
+      "Please Enter The Correct Name";
     firstNameInput.classList.add("failed");
     usernamevalid = false;
   }
