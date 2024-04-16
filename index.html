@@ -22,24 +22,24 @@
         <div class="col-md-4 offset-1 formInfo position-relative ">
           <div class="logo ps-4"><span class="fw-semibold fs-1 heading">Education</span> <span class="fs-4 fw-semibold">Form</span></div>
           <ul class="progressStep d-flex flex-column justify-content-center gap-4 pt-4 ps-3">
-            <li class="step active">
-              <span>1</span>
+            <li class="step active" >
+              <span id="stepIcon1">1</span>
               <p>
                 Personal Details <br />
                 <span class="small">Complete your First Section</span>
               </p>
             </li>
 
-            <li class="step">
-              <span>2</span>
+            <li class="step" >
+              <span id="stepIcon2">2</span>
               <p>
                 Contact Details <br />
                 <span class="small">Complete your Second Section</span>
               </p>
             </li>
 
-            <li class="step ">
-              <span>3</span>
+            <li class="step">
+              <span id="stepIcon3">3</span>
               <p>
                 Security Details <br />
                 <span class="small">Complete your Third Section</span>
@@ -51,7 +51,7 @@
         <div class="col-md-7 formSection  ">
           <form class="pl-5 " id="registration-form" data-multistep action="">
 
-            <div class="formOne border-0 card py-3 stepForm" data-step>
+            <div id="step1" class="formOne border-0 card py-3 stepForm active" data-step>
               <h1 class="pb-1 display-5 fw-semibold">Personal Information</h1>
               <p class="pb-1">Enter your Personal Details Here</p>
               <div>
@@ -66,12 +66,12 @@
                 <p id="emailerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
                     <div class="btn-group text-center  pt-4">
-                    <button type="button" class="btn-Next " nxtbtn>Next</button>
+                    <button id="step1NextBtn" type="button" class="btn-Next sectiononebtn " nxtbtn>Next</button>
 
             </div>
             </div>
 
-            <div class="formTwo border-0 card stepForm" data-step>
+            <div id="step2" class="formTwo border-0 card stepForm" data-step>
               <h1>Contact Information</h1>
               <p>Enter your Contact Details Here</p>
               <div>
@@ -105,36 +105,37 @@
                 </div>
             
                      <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
-                    <button type="button" class="secondbtn-prev" prevbtn >Back</button>
-                    <button type="button" class="secondbtn-Next" nxtbtn>Next</button>
+                    <button id="step2BackBtn" type="button" class="secondbtn-prev" prevbtn >Back</button>
+                    <button id="step2NextBtn" type="button" class="secondbtn-Next" nxtbtn>Next</button>
             </div>
             </div>
 
-            <div class="formThree border-0 card stepForm" data-step>
+            <div id="step3" class="formThree border-0 card stepForm" data-step>
                 <h1>Security Information</h1>
                 <p>Enter your Security Details Here</p>
                 <div>
                   <label>Password</label>
                   <input class="empty" type="password" placeholder="Password" id="password" />
+                  <p id="passworderror" class="small pt-1  m-0 ps-1 text-danger"></p>
+
                 </div>
                 <div>
                   <label>Confirm Password</label>
                   <input class="empty" type="password" id="cpassword" placeholder="PASSWORD" />
+                  <p id="cpassworderror" class="small pt-1  m-0 ps-1 text-danger"></p>
+
                 </div>
                 <div>
                   <label>Security Question</label>
                   <input class="empty" type="text" id="squestion" placeholder="Security Question" />
+                  <p id="questionerror" class="small pt-1  m-0 ps-1 text-danger"></p>
                 </div> 
                     <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
-                    <button type="button" class="btn-prev" prevbtn>Back</button>
+                    <button id="step3BackBtn" type="button" class="btn-prev" prevbtn>Back</button>
                     <button type="submit" class="btn-Submit">Submit</button>
             </div>
             </div>
-            <!-- <div class="btn-group d-flex  justify-content-between pt-4 mt-3">
-                    <button type="button" class="btn-prev" disabled>Back</button>
-                    <button type="button" class="btn-Next">Next</button>
-                    <button type="submit" class="btn-Submit">Submit</button>
-            </div> -->
+
             </form>
         </div>
         </div>
