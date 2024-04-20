@@ -1,10 +1,45 @@
 const multistepForm = document.querySelector("[data-multistep]");
 const formsteps = [...multistepForm.querySelectorAll("[data-step]")];
 const progresssteps = document.querySelectorAll(".step");
-
+const form1input = document.querySelectorAll("#step1  input");
+const form2input = document.querySelectorAll("#step2 input");
+const form3input = document.querySelectorAll("#step3 input");
+const nextBtn = document.querySelector(".btn-Next");
+const secondNxtBtn = document.querySelector(".secondbtn-Next");
+const submitBtn = document.querySelector(".btn-Submit");
 const form = document.getElementById("registration-form");
 const firstNameInput = document.getElementById("firstname");
 const email = document.getElementById("email");
+const formarr = [form1input, form2input, form3input];
+
+var a;
+function pass(event) {
+  if (a == 1) {
+    console.log(event.target);
+    document.getElementById("password").type = "password";
+    document.getElementById("eyeicon").src = "./Images/eye-close.png";
+    a = 0;
+  } else {
+    document.getElementById("password").type = "text";
+    document.getElementById("eyeicon").src = "./Images/eye-open.png";
+    a = 1;
+  }
+}
+
+function checkvalidations(value, btn) {
+  value.forEach((inputs) => {
+    inputs.addEventListener("input", () => {
+      const isempty = value.some((input) => {
+        return !input.value;
+      });
+      btn.classList.toggle("disabled", isempty);
+      btn.disabled = isempty;
+    });
+  });
+}
+const formone = [...form1input];
+const formtwo = [...form2input];
+const formthree = [...form3input];
 
 // regex validation for username
 const usernamevalidation = /^(?=.*[A-Z])[a-zA-Z]{1,50}$/;
@@ -108,47 +143,52 @@ function validateform(event) {
 //   });
 // }
 
-//for name and email regex Validation
+nextBtn.disabled = true;
+secondNxtBtn.disabled = true;
+submitBtn.disabled = true;
 
-firstNameInput.addEventListener("keyup", (e) => {
-  console.log(e.target.value);
-  if (usernamevalidation.test(e.target.value)) {
+firstNameInput.addEventListener("input", (e) => {
+  const isNameValid = usernamevalidation.test(e.target.value);
+  if (isNameValid) {
     document.querySelector("#firstnameerror").innerText = "";
     firstNameInput.classList.remove("failed");
     firstNameInput.classList.add("success");
-  } else if (/[0-9]/.test(e.target.value)) {
-    document.querySelector("#firstnameerror").innerText =
-      "Do not Enter Numbers on Username Feild";
-    e.target.classList.add("failed");
+  } else if (firstNameInput.value === "") {
+    firstNameInput.classList.remove("failed");
+    firstNameInput.classList.remove("success");
   } else {
-    document.querySelector("#firstnameerror").innerText =
-      "Please Enter The Correct Name";
+    document.querySelector("#firstnameerror").innerText = "";
     firstNameInput.classList.add("failed");
   }
 });
-email.addEventListener("keyup", (e) => {
-  if (emailValidation.test(e.target.value)) {
-    document.querySelector("#emailerror").innerText = " ";
+email.addEventListener("input", (e) => {
+  const isEmailValid = emailValidation.test(e.target.value);
+  if (isEmailValid) {
+    document.querySelector("#firstnameerror").innerText = "";
     e.target.setAttribute("class", "success");
-    emailvalid = true;
+  } else if (e.target.value === "") {
+    e.target.classList.remove("failed");
+    e.target.classList.remove("success");
   } else {
-    document.querySelector("#emailerror").innerText =
-      "Incorrect Email Please Check Your Email";
+    document.querySelector("#emailerror").innerText = "";
     e.target.setAttribute("class", "failed");
-    emailvalid = false;
   }
 });
 
+checkvalidations(formone, nextBtn);
+
 //phone validation
-document.getElementById("phone").addEventListener("keyup", (e) => {
+document.getElementById("phone").addEventListener("input", (e) => {
   const phoneInput = document.getElementById("phone");
   if (phoneValidation.test(phoneInput.value)) {
     document.querySelector("#phoneerror").innerText = "";
     e.target.setAttribute("class", "success");
+  } else if (phoneInput.value === "") {
+    phoneInput.classList.remove("failed");
+    phoneInput.classList.remove("success");
   } else {
     e.target.setAttribute("class", "failed");
-    document.querySelector("#phoneerror").innerText =
-      "PhoneNumber Contains 10 Digit Numbers";
+    document.querySelector("#phoneerror").innerText = "";
   }
 });
 
@@ -159,9 +199,13 @@ document.getElementById("streetname").addEventListener("keyup", (e) => {
     addressError.textContent = "";
     e.target.classList.remove("failed");
     e.target.classList.add("success");
+  } else if (e.target.value === "") {
+    e.target.classList.remove("failed");
+    e.target.classList.remove("success");
   } else {
+    addressError.textContent = "";
     e.target.classList.add("failed");
-    addressError.textContent = "Street address is required minimum 8 letters";
+    // addressError.textContent = "Street address is required minimum 8 letters";
   }
 });
 
@@ -169,12 +213,15 @@ document.getElementById("streetname").addEventListener("keyup", (e) => {
 document.getElementById("zipcode").addEventListener("keyup", (e) => {
   const pinCodeInput = document.getElementById("zipcode");
   const pinError = document.getElementById("codeerror");
-  if (/^\d{1,6}$/.test(pinCodeInput.value.trim())) {
+  if (/^\d{6,6}$/.test(pinCodeInput.value.trim())) {
     pinError.textContent = "";
     pinCodeInput.classList.remove("failed");
     pinCodeInput.classList.add("success");
+  } else if (pinCodeInput.value === "") {
+    pinCodeInput.classList.remove("failed");
+    pinCodeInput.classList.remove("success");
   } else {
-    pinError.textContent = "Please enter a valid 6-digit PIN code";
+    pinError.textContent = "";
     pinCodeInput.classList.add("failed");
     pinCodeInput.classList.remove("success");
   }
@@ -188,12 +235,18 @@ document.getElementById("city").addEventListener("keyup", (e) => {
     cityError.textContent = "";
     cityInput.classList.remove("failed");
     cityInput.classList.add("success");
+  } else if (cityInput.value === "") {
+    cityInput.classList.remove("failed");
+    cityInput.classList.remove("success");
   } else {
-    cityError.textContent = "Please enter a valid city name";
+    cityError.textContent = "";
+    // cityError.textContent = "Please enter a valid city name";
     cityInput.classList.add("failed");
     cityInput.classList.remove("success");
   }
 });
+
+checkvalidations(formtwo, secondNxtBtn);
 
 //password validation
 document.getElementById("password").addEventListener("keydown", () => {
@@ -203,17 +256,23 @@ document.getElementById("password").addEventListener("keydown", () => {
     passwordError.textContent = "";
     passwordInput.classList.remove("failed");
     passwordInput.classList.add("success");
+  } else if (passwordInput.value === "") {
+    passwordInput.classList.remove("failed");
+    passwordInput.classList.remove("success");
   } else {
-    passwordError.textContent =
-      "Password must be at least 4 characters and Contains 1 capital letter";
+    passwordError.textContent = "";
+    // passwordError.textContent =
+    //   "";
     passwordInput.classList.add("failed");
     passwordInput.classList.remove("success");
   }
 });
 
+//submit
 form.addEventListener("submit", (e) => {
+  debugger;
   e.preventDefault();
-  console.log("in");
+  // console.log("in");
   const fname = document.getElementById("firstname").value;
   const Email = document.getElementById("email").value;
   const Phone = document.getElementById("phone").value;
@@ -271,6 +330,9 @@ form.addEventListener("submit", (e) => {
         document.getElementById(`${value}`).classList.add("success");
       }
     });
+    document.getElementById("cpassword").classList.add("success");
+    document.getElementById("passworderror").innerText = "";
+    document.getElementById("cpassworderror").innerText = "";
   }
 
   if (Password == "" || Cpassword == "" || SecurityQuestion == "") {
@@ -279,7 +341,7 @@ form.addEventListener("submit", (e) => {
     });
 
     document.getElementById("passworderror").innerText =
-      "kindly fill this field";
+      "Password must be at least 4 characters and Contains 1 capital letter";
     document.getElementById("cpassworderror").innerText = "This feild is empty";
     document.getElementById("questionerror").innerText = "This feild is empty";
     return false;
@@ -292,7 +354,10 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+checkvalidations(formthree, submitBtn);
+
 document.getElementById("step1NextBtn").addEventListener("click", () => {
+  // debugger;
   let name = document.getElementById("firstname").value;
   let email = document.getElementById("email").value;
 
@@ -303,13 +368,18 @@ document.getElementById("step1NextBtn").addEventListener("click", () => {
 
   //username
   if (usernamevalidation.test(name)) {
-    document.querySelector("#firstnameerror").innerText = "";
     firstNameInput.classList.remove("failed");
     firstNameInput.classList.add("success");
     usernamevalid = true;
-  } else {
+  } else if (firstNameInput.value == "") {
     document.querySelector("#firstnameerror").innerText =
       "Please Enter The Correct Name";
+    // firstNameInput.classList.remove("failed");
+    // firstNameInput.classList.remove("success");
+  } else {
+    document.querySelector("#firstnameerror").innerText =
+      "Invalid Username Please Check";
+
     firstNameInput.classList.add("failed");
     usernamevalid = false;
   }
@@ -322,7 +392,7 @@ document.getElementById("step1NextBtn").addEventListener("click", () => {
   } else {
     document.querySelector("#emailerror").innerText =
       "Incorrect Email Please Check Your Email";
-    emailInput.classList.add("class", "failed");
+    // emailInput.classList.add("class", "failed");
     emailvalid = false;
   }
 
@@ -347,7 +417,8 @@ document.getElementById("step2NextBtn").addEventListener("click", () => {
     isphonevalid = true;
   } else {
     phoneInput.setAttribute("class", "failed");
-    document.querySelector("#phoneerror").innerText = "Incorrect PhoneNumber";
+    document.querySelector("#phoneerror").innerText =
+      "PhoneNumber Contains 10 Digit Numbers";
     isphonevalid = false;
   }
 
@@ -365,7 +436,7 @@ document.getElementById("step2NextBtn").addEventListener("click", () => {
   //pincode validation
   const pinCodeInput = document.getElementById("zipcode");
   const pinError = document.getElementById("codeerror");
-  if (/^\d{1,6}$/.test(pinCodeInput.value.trim())) {
+  if (/^\d{6,6}$/.test(pinCodeInput.value.trim())) {
     pinCodeInput.classList.add("success");
     ispincodevalid = true;
   } else {

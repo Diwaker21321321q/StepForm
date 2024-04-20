@@ -16,6 +16,13 @@
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
+.eyeopen {
+  top: 30%;
+  right: 16px;
+  width: 6%;
+  cursor: pointer;
+}
+
 .formSection {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
