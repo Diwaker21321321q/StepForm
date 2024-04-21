@@ -57,9 +57,10 @@ function validateform(event) {
   const inputValue = event.key;
 
   const inputId = event.target.id;
+  console.log(inputId);
 
   switch (inputId) {
-    case "firstname":
+    case "name":
       if (usernamevalidation.test(inputValue)) {
         event.preventDefault();
       }
@@ -82,6 +83,10 @@ function validateform(event) {
         event.preventDefault();
       }
       break;
+    case "sanswer":
+      if (usernamevalidation.test(inputValue)) {
+        event.preventDefault();
+      }
     default:
       break;
   }
@@ -89,6 +94,9 @@ function validateform(event) {
 
 // on input form validation start here
 const inputhandleKey = (e, key) => {
+  debugger;
+  const Password = document.getElementById("password").value;
+  const Cpassword = document.getElementById("cpassword").value;
   const regexvalidation = {
     name: /^(?=.*[A-Z])[a-zA-Z]{1,50}$/,
     specialchars:
@@ -96,9 +104,10 @@ const inputhandleKey = (e, key) => {
     phone: /^\d{10}$/,
     streetname: /^[a-zA-Z\s\d]{8,200}$/,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    password: /^(?=.*[A-Z]).{4,}$/,
+    password: /^(?=.*[A-Z]).{1,}$/,
     zipcode: /^\d{6,6}$/,
     city: /^[a-zA-Z\s]+$/,
+    sanswer: /^(?=.*[A-Z])[a-zA-Z]{1,50}$/,
     error: "",
   };
   let value = e.target.value;
@@ -115,6 +124,12 @@ const inputhandleKey = (e, key) => {
     document.querySelector(`#${key}error`).innerText = regexvalidation["error"];
     tag.classList.add("failed");
   }
+
+  if (Password == "" || Cpassword == "") {
+    document.getElementById("cpassworderror").innerText = "";
+  } else {
+    document.getElementById("cpassworderror").innerText = "";
+  }
 };
 
 nextBtn.disabled = true;
@@ -125,67 +140,50 @@ checkvalidations(formtwo, secondNxtBtn);
 
 //submit
 form.addEventListener("submit", (e) => {
+  debugger;
   e.preventDefault();
+
   const fname = document.getElementById("name").value;
   const Email = document.getElementById("email").value;
   const Phone = document.getElementById("phone").value;
   const streetaddress = document.getElementById("streetname").value;
-  let City = document.getElementById("city").value;
-  let Password = document.getElementById("password").value;
-
+  const City = document.getElementById("city").value;
+  const Password = document.getElementById("password").value;
   const Cpassword = document.getElementById("cpassword").value;
-  const SecurityQuestion = document.getElementById("squestion").value;
+  const security_question = document.getElementById("security_question").value;
+  const SecurityAnswer = document.getElementById("sanswer").value;
 
-  const formData = {
-    fname,
-    Email,
-    Phone,
-    City,
-    Password,
-    Cpassword,
-    SecurityQuestion,
-  };
-  const stringData = JSON.stringify(formData);
-  localStorage.setItem("formData", stringData);
+  const passwordRegex = /^(?=.*[A-Z]).{4,}$/;
 
-  let arrPass = ["password", "cpassword", "squestion"];
+  const isPasswordValid = passwordRegex.test(Password);
+  const doPasswordsMatch = Password === Cpassword;
 
-  if (Password !== Cpassword) {
-    document.getElementById("cpassworderror").innerText =
-      "Passwords do not match Please Check Your Password";
-    arrPass.forEach((value, i) => {
-      if (i < 2) {
-        document.getElementById(`${value}`).classList.add("failed");
-      }
-    });
-    return false;
-  } else {
-    arrPass.forEach((value, i) => {
-      if (i < 2) {
-        document.getElementById(`${value}`).classList.add("success");
-      }
-    });
-    document.getElementById("cpassword").classList.add("success");
-    document.getElementById("passworderror").innerText = "";
-    document.getElementById("cpassworderror").innerText = "";
-  }
+  const isFormValid = isPasswordValid && doPasswordsMatch;
 
-  if (Password == "" || Cpassword == "" || SecurityQuestion == "") {
-    arrPass.forEach((value) => {
-      document.getElementById(`${value}`).classList.add("failed");
-    });
-
-    document.getElementById("passworderror").innerText =
-      "Password must be at least 4 characters and Contains 1 capital letter";
-    document.getElementById("cpassworderror").innerText = "This feild is empty";
-    document.getElementById("questionerror").innerText = "This feild is empty";
-    return false;
-  } else if (Password !== "" || Cpassword !== "" || SecurityQuestion !== "") {
-    arrPass.forEach((value) => {
-      document.getElementById(`${value}`).classList.add("success");
-    });
+  if (isFormValid) {
+    const formData = {
+      fname,
+      Email,
+      Phone,
+      streetaddress,
+      City,
+      Password,
+      Cpassword,
+      security_question,
+      SecurityAnswer,
+    };
+    const stringData = JSON.stringify(formData);
+    localStorage.setItem("formData", stringData);
     form.reset();
     location.href = "redirect.html";
+  } else {
+    if (!isPasswordValid) {
+      document.getElementById("passworderror").innerText =
+        "Password must be at least 4 characters and contain at least one capital letter";
+    } else {
+      document.getElementById("cpassworderror").innerText =
+        "Passwords do not match. Please check your password.";
+    }
   }
 });
 

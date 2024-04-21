@@ -176,10 +176,21 @@ form > div.active {
 
 .success {
   border: 2px solid green !important;
+  width: 100% !important;
 }
 
 .failed {
+  width: 100% !important;
   border: 2px solid red !important;
+}
+.select {
+  outline: 1px solid black;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 14px 4px;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 10px;
 }
 /* 
 // let validatearr = [];
@@ -223,3 +234,27 @@ form > div.active {
 //     step.classList.toggle("active", index === currentStep);
 //   });
 // } */
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+@media only screen and (max-width: 767px) {
+  .progressStep {
+    flex-direction: row;
+  }
+  .progressStep li:not(:last-child)::before {
+    top: 20px;
+    left: 22px;
+    width: 188px;
+    height: 3px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+  }
+  .formSection {
+    padding: 30px 0px 15px 0px !important;
+  }
+}
