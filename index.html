@@ -52,23 +52,21 @@
               <h1 class="pb-1 display-5 fw-semibold">Personal Information</h1>
               <p class="pb-1">Enter your Personal Details Here</p>
               <div>
-                <div class="content d-flex">
                   <label class="ps-1 fs-5 pb-1 ">FullName: </label>
-                  <p id="nameerror" class="small pt-2  m-0 ps-2 text-danger"></p>
-                </div>
-                <input class="mb-2 empty" oninput="inputhandleKey(event, 'name')" type="text" placeholder="Fullname"
+                <input autocomplete="off" class="empty" oninput="inputhandleKey(event, 'name')" type="text" placeholder="Fullname"
                   id="name" onkeypress="validateform(event)" />
+                  <p id="nameerror" class="small pt-2  m-0 ps-2 text-danger"></p>
               </div>
 
               <div>
-                <div class="content d-flex">
-                  <label class="fs-5 pb-1 ps-1">Email:</label>
-                  <p id="emailerror" class="small  pt-2  m-0 ps-2 text-danger"></p>
-                </div>
-                <input name="email" oninput="inputhandleKey(event, 'email')" class="empty" type="text"
+                  <label class="fs-5 pb-1 ps-1">Email:</label>               
+                <input autocomplete="off" name="email" oninput="inputhandleKey(event, 'email')" class="empty" type="text"
                   placeholder="Email" id="email" />
+                  <div style="height: 20px;" class="mt-2">
+                    <p id="emailerror" class="small  pt-0  m-0 ps-2 text-danger"></p>
+                  </div>
               </div>
-              <div class="btn-group text-center  pt-4">
+              <div class="btn-group text-center  pt-2">
                 <button id="step1NextBtn" onclick="handleFirstNextButton(event)" type="button"
                   class="btn-Next sectiononebtn " nxtbtn>Next</button>
 
@@ -79,39 +77,44 @@
               <h1>Contact Information</h1>
               <p>Enter your Contact Details Here</p>
               <div>
-                <div class="content d-flex">
                   <label class="fs-5 fw-semibold py-2">Phone:</label>
-                  <p id="phoneerror" class="small pt-3  m-0 ps-2 text-danger"></p>
-                </div>
-                <input class="empty" oninput="inputhandleKey(event, 'phone')" type="text" id="phone" minlength="1"
+                <input autocomplete="off" class="empty" oninput="inputhandleKey(event, 'phone')" type="text" id="phone" minlength="1"
                   maxlength="10" placeholder="Phone" onkeypress="validateform(event)" />
+                  <div style="height: 20px;" class="mt-2">
+                  <p id="phoneerror" class="small pt-0 m-0 ps-2 text-danger"></p>
+                  </div>
+
               </div>
               <div>
                 <label class="pt-2 pb-1 fs-5 fw-semibold">Address:</label>
                 <div class="row justify-content-center p-0 m-0">
                   <div class="col-lg p-0 m-0">
                     <label class="mb-2">Street Name:</label>
-                    <input class="empty w-100" oninput="inputhandleKey(event, 'streetname')" type="text" id="streetname"
+                    <input autocomplete="off" class="empty w-100" oninput="inputhandleKey(event, 'streetname')" type="text" id="streetname"
                       placeholder="Address" />
-                    <p id="streetnameerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                  <div style="height: 20px;" class="mt-2">
+                    <p id="streetnameerror" class="small pt-0  m-0 ps-1 text-danger"></p>
+                    </div>
                   </div>
 
                   <div class="col-lg">
                     <label class="mb-2">ZipCode:</label>
-                    <input class="empty w-100" oninput="inputhandleKey(event, 'zipcode')" type="tel" id="zipcode"
+                    <input autocomplete="off" class="empty w-100" oninput="inputhandleKey(event, 'phone')" type="tel" id="zipcode"
                       maxlength="6" placeholder="Pincode" onkeypress="validateform(event)" />
-                    <p id="zipcodeerror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                  <div style="height: 20px;" class="mt-2">
+                    <p id="zipcodeerror" class="small pt-0  m-0 ps-1 text-danger"></p>
+                    </div>
                   </div>
 
                 </div>
               </div>
               <div>
-                <div class="content d-flex">
                   <label class="pt-2 pb-1 fs-5 fw-semibold">City:</label>
-                  <p id="cityerror" class="small pt-3  m-0 ps-2 text-danger"></p>
-                </div>
-                <input class="empty" oninput="inputhandleKey(event, 'city')" type="text" id="city" placeholder="City"
+                <input autocomplete="off" class="empty" oninput="inputhandleKey(event, 'name')" type="text" id="city" placeholder="City"
                   onkeypress="validateform(event)" />
+                  <div style="height: 20px;" class="mt-2">
+                  <p id="cityerror" class="small pt-0  m-0 ps-2 text-danger"></p>
+                  </div>
               </div>
 
               <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
@@ -126,16 +129,18 @@
               <p>Enter your Security Details Here</p>
               <label>Password</label>
               <div class="d-flex position-relative align-items-center">
-                <input class="w-100 empty" oninput="inputhandleKey(event, 'password')" type="password"
+                <input autocomplete="off" class="w-100 empty" oninput="inputhandleKey(event, 'password')" type="password"
                   placeholder="Password" id="password" />
                 <img class="eyeopen position-absolute" src="./Images/eye-close.png" id="eyeicon" alt=""
                   onclick="pass(event)" />
-                <p id="passworderror" class="small pt-1  m-0 ps-1 text-danger"></p>
+                  <div style="height: 20px;" class="mt-2">
+                <p id="passworderror" class="small pt-0  m-0 ps-1 text-danger"></p>
+                </div>
 
               </div>
               <label>Confirm Password</label>
               <div class="d-flex position-relative">
-                <input class="w-100 empty" oninput="inputhandleKey(event, 'password')" type="password" id="cpassword"
+                <input autocomplete="off" class="w-100 empty" oninput="inputhandleKey(event, 'password')" type="password" id="cpassword"
                   placeholder="PASSWORD" />
                 <!-- <img
                               class="eyeopen position-absolute"
@@ -144,23 +149,23 @@
                               alt=""
                               onclick="pass(event)"
                               /> -->
-                <p id="cpassworderror" class="small pt-1  m-0 ps-1 text-danger"></p>
-
+                  <div style="height: 20px;" class="mt-2">
+                <p id="cpassworderror" class="small pt-0  m-0 ps-1 text-danger"></p>
+                  </div>
               </div>
               <div>
                 <!-- <label>Security Question</label> -->
                 <label for="security_question">Security Question:</label>
                 <select class="select" id="security_question" name="security_question">
+                  <option value="">Select a security question</option>
                   <option value="first_pet_name">What is the name of your first pet?</option>
                   <option value="birth_city">What city were you born in?</option>
                   <option value="favorite_movie">What is your favorite movie?</option>
                 </select>
                 <br>
                 <label class="ps-1" for="squestion">Answer:</label>
-                <input class="empty" oninput="inputhandleKey(event, 'sanswer')" onkeypress="validateform(event)" type="text" id="sanswer" name="squestion" >
+                <input autocomplete="off" class="empty" oninput="inputhandleKey(event, 'name')" onkeypress="validateform(event)" type="text" id="sanswer" name="squestion" >
                 <br>
-                <!-- <input    type="text" id="squestion"
-                  placeholder="Security Question" /> -->
                 <p id="questionerror" class="small pt-1  m-0 ps-1 text-danger"></p>
               </div>
               <div class="btn-group d-flex flex-row  justify-content-around pt-4 mt-3">
@@ -179,3 +184,6 @@
 </body>
 
 </html>
+<!-- const multistepForm = document.querySelector("[data-multistep]");
+const formsteps = [...multistepForm.querySelectorAll("[data-step]")];
+const progresssteps = document.querySelectorAll(".step"); -->

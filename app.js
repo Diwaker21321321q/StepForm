@@ -1,6 +1,3 @@
-const multistepForm = document.querySelector("[data-multistep]");
-const formsteps = [...multistepForm.querySelectorAll("[data-step]")];
-const progresssteps = document.querySelectorAll(".step");
 const form1input = document.querySelectorAll("#step1  input");
 const form2input = document.querySelectorAll("#step2 input");
 const form3input = document.querySelectorAll("#step3 input");
@@ -11,6 +8,7 @@ const form = document.getElementById("registration-form");
 const email = document.getElementById("email");
 const formarr = [form1input, form2input, form3input];
 
+// console.log(form1input); it gives the inputs tags which are present in form pages
 var a;
 function pass(event) {
   if (a == 1) {
@@ -31,6 +29,7 @@ function checkvalidations(value, btn) {
       const isempty = value.some((input) => {
         return !input.value;
       });
+      // console.log(isempty); it gives true if i put any value in input
       btn.classList.toggle("disabled", isempty);
       btn.disabled = isempty;
     });
@@ -40,24 +39,17 @@ const formone = [...form1input];
 const formtwo = [...form2input];
 const formthree = [...form3input];
 
-// regex validation
-const usernamevalidation = /^(?=.*[A-Z])[a-zA-Z]{1,50}$/;
-const specialchars =
-  /^(?=.*[A-Z])[a-zA-Z!@#$%^&*()_+={}[\]:;\"'<,>.?/~`|-]{1,50}$/;
-const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phoneValidation = /^\d{10}$/;
-const addressRegex = /^[a-zA-Z\s\d]{8,200}$/;
-const passwordregex = /^(?=.*[A-Z]).{4,}$/;
+// console.log(formone, formtwo, formthree); it gives the inputs feilds in an array
 
 //on key press form validation start here
 function validateform(event) {
   const usernamevalidation = /[^a-zA-Z\s]+/;
+  // /^[a-zA-Z ]+$/ for avoiding spaces
   const numbervalidation = /[^0-9]+/;
 
   const inputValue = event.key;
 
   const inputId = event.target.id;
-  console.log(inputId);
 
   switch (inputId) {
     case "name":
@@ -94,20 +86,14 @@ function validateform(event) {
 
 // on input form validation start here
 const inputhandleKey = (e, key) => {
-  debugger;
   const Password = document.getElementById("password").value;
   const Cpassword = document.getElementById("cpassword").value;
   const regexvalidation = {
-    name: /^(?=.*[A-Z])[a-zA-Z]{1,50}$/,
-    specialchars:
-      /^(?=.*[A-Z])[a-zA-Z!@#$%^&*()_+={}[\]:;\"'<,>.?/~`|-]{1,50}$/,
-    phone: /^\d{10}$/,
+    name: /^[a-zA-Z]+$/,
+    phone: /^\d+$/,
     streetname: /^[a-zA-Z\s\d]{8,200}$/,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     password: /^(?=.*[A-Z]).{1,}$/,
-    zipcode: /^\d{6,6}$/,
-    city: /^[a-zA-Z\s]+$/,
-    sanswer: /^(?=.*[A-Z])[a-zA-Z]{1,50}$/,
     error: "",
   };
   let value = e.target.value;
@@ -135,6 +121,7 @@ const inputhandleKey = (e, key) => {
 nextBtn.disabled = true;
 secondNxtBtn.disabled = true;
 submitBtn.disabled = true;
+//check condition for next button disabled
 checkvalidations(formone, nextBtn);
 checkvalidations(formtwo, secondNxtBtn);
 
@@ -187,7 +174,6 @@ form.addEventListener("submit", (e) => {
   }
 });
 
-//check condition for next button disabled
 checkvalidations(formthree, submitBtn);
 
 //check validation before clicking next button
@@ -223,7 +209,7 @@ const stepform = (id1, icon1, id2, icon2) => {
 
 const handleFirstNextButton = (event) => {
   const regexvalidation = {
-    name: /^(?=.*[A-Z])[a-zA-Z]{1,50}$/,
+    name: /^[a-zA-Z]+$/,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     error: "Invalid Please Check",
   };
